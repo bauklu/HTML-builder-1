@@ -1,6 +1,8 @@
 const process = require('process');
 const fs = require('fs');
-const output = fs.createWriteStream('destination.txt');
+const path = require('path');
+const dest = path.join(__dirname, 'destination.txt');
+const output = fs.createWriteStream(dest);
 const { stdin, stdout } = process;
 
 stdout.write("Привет! Введите текст. Для выхода введите 'ctrl+c' или 'exit' \n ");

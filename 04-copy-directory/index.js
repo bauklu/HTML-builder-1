@@ -5,15 +5,24 @@ const sourceN = path.join(__dirname, 'files-copy');
 
 fs.access(sourceN, function (error) {
     if (error) {
-        console.log("Directory does not exist")
+        console.log("Directory does not exist");
         fs.mkdir(sourceN, err => {
             if (err) throw err;
             console.log("Directory is created");
             getCurrentFiles();
         });
     } else {
-        console.log("Directory exists")
-        getCurrentFiles();
+        console.log("Directory exists");
+        fs.rmdir(sourceN, { recursive: true }, err => {
+            if (err) throw err;
+            console.log("Directory is deleted");
+            fs.mkdir(sourceN, err => {
+                if (err) throw err;
+                console.log("Directory is created");
+                getCurrentFiles();
+            });
+
+        });
     }
 })
 
